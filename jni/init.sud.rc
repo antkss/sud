@@ -1,8 +1,40 @@
-# su daemon
-service su_daemon /system/xbin/su --daemon
-    group root
-    seclabel u:r:su:s0
-    user root
+service su_daemon /system/bin/su --daemon
+	user root
+	group root
+	disabled
+	seclabel u:r:su:s0
+	restart
 
-on post-fs-data
-    start su_daemon
+service script_custom /system/bin/script.sh
+	oneshot
+	user root
+	group root
+	disabled
+	seclabel u:r:su:s0
+
+on property:sys.boot_completed=1
+        exec - -- /system/bin/ksud sepolicy patch "allow  init su process {transition }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su system_file file { entrypoint }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  init su process { rlimitinh }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  init su process { siginh }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su shell_exec file { read }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su shell_exec file { execute }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su shell_exec file { getattr  }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su vendor_toolbox_exec file { execute_no_trans }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  init su process { noatsecure }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su toolbox_exec file { getattr }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su toolbox_exec file { execute }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su system_file file { execute_no_trans }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su storage_file dir { search }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su storage_file lnk_file { read }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su tmpfs dir { search }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su mnt_user_file dir { search }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su mnt_user_file lnk_file { read }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su sdcardfs dir { search }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su sdcardfs file { append }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su toolbox_exec file { read }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su toolbox_exec file { open }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su sdcardfs file { read }"
+        exec - -- /system/bin/ksud sepolicy patch "allow  su sdcardfs file { write }"
+	start su_daemon
+	start script_custom
