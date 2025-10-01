@@ -1,0 +1,48 @@
+su invoked.
+starting daemon client 1000 1000
+daemon bind failed with 98: Address already in use
+daemon bind failed with 98: Address already in use
+connecting client 30485
+unable to write int failed with 9: Bad file descriptor
+su invoked.
+starting daemon client 1000 1000
+daemon bind failed with 98: Address already in use
+daemon bind failed with 98: Address already in use
+connecting client 30643
+unable to write int failed with 9: Bad file descriptor
+su invoked.
+starting daemon client 1000 1000
+connecting client 30858
+remote pid: 30858
+remote pts_slave: /dev/pts/8
+remote uid: 1000
+remote req pid: 27212
+remote args: 1
+waiting for child exit
+daemon: stdin using PTY
+daemon: stdout using PTY
+daemon: stderr using PTY
+su invoked.
+1000 /home/as/cac/sud/jni/bin/suka executing 0 /bin/sh using binary /bin/sh : sh
+sending code
+child exited
+client exited 0
+su invoked.
+starting daemon client 1000 1000
+connecting client 31154
+remote pid: 31154
+remote pts_slave: /dev/pts/8
+remote uid: 1000
+remote req pid: 27212
+remote args: 1
+waiting for child exit
+daemon: stdin using PTY
+daemon: stdout using PTY
+daemon: stderr using PTY
+su invoked.
+1000 /home/as/cac/sud/jni/bin/suka executing 0 /bin/sh using binary /bin/sh : sh
+sending code
+child exited
+client exited 127
+su invoked.
+starting daemon client 1000 1000
