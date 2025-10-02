@@ -251,9 +251,9 @@ static int daemon_accept(int fd) {
     LOGD("remote req pid: %d", daemon_from_pid);
 
     struct ucred credentials;
-    int ucred_length = sizeof(struct ucred);
+    socklen_t ucred_length = sizeof(struct ucred);
     /* fill in the user data structure */
-    if(getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &credentials, (unsigned int *)&ucred_length)) {
+    if(getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &credentials, &ucred_length)) {
         LOGE("could obtain credentials from unix domain socket");
         exit(-1);
     }
